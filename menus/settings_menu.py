@@ -5,7 +5,6 @@ import keybinds
 import rendering.neon as neon
 import util.fonts as fonts
 import main
-from sound_manager.SoundManager import SoundManager
 
 
 class SettingsMenuMode(main.GameMode):
@@ -25,15 +24,14 @@ class SettingsMenuMode(main.GameMode):
         self.option_font = fonts.get_font(config.FontSize.option)
 
     def on_mode_start(self):
-        SoundManager.play_song("menu_theme", fadein_ms=3000)
+        pass
 
     def _update_volumes(self):
         config.Music.volume = self.options[0][1]
         config.Sound.volume = self.options[1][1]
-        SoundManager.update_song_volume()
 
     def exit_pressed(self):
-        SoundManager.play("accept")
+        
         self._update_volumes()
         config.Display.fps = self.options[2][1]
 
@@ -52,17 +50,17 @@ class SettingsMenuMode(main.GameMode):
         for e in events:
             if e.type == pygame.KEYDOWN:
                 if e.key in keybinds.MENU_UP:
-                    SoundManager.play("blip")
+                    
                     self.selected_option_idx = (self.selected_option_idx - 1) % len(self.options)
                 elif e.key in keybinds.MENU_DOWN:
-                    SoundManager.play("blip")
+                    
                     self.selected_option_idx = (self.selected_option_idx + 1) % len(self.options)
                 elif e.key in keybinds.MENU_ACCEPT:
                     # so sound bc there's nothing to accept
                     if self.selected_option_idx == len(self.options) - 1:
                         self.options[self.selected_option_idx][1]()
                 elif e.key in keybinds.MENU_RIGHT:
-                    SoundManager.play("blip")
+                    
                     if self.options[self.selected_option_idx][1] not in self.options[self.selected_option_idx][2]:
                         self.options[self.selected_option_idx][1] = self.options[self.selected_option_idx][2][self.options[self.selected_option_idx][3]]
                         self._update_volumes()
@@ -71,7 +69,7 @@ class SettingsMenuMode(main.GameMode):
                             self.options[self.selected_option_idx][2][self.options[self.selected_option_idx][2].index(self.options[self.selected_option_idx][1]) + 1]
                         self._update_volumes()
                 elif e.key in keybinds.MENU_LEFT:
-                    SoundManager.play("blip")
+                    
                     if self.options[self.selected_option_idx][1] not in self.options[self.selected_option_idx][2]:
                         self.options[self.selected_option_idx][1] = self.options[self.selected_option_idx][2][self.options[self.selected_option_idx][3]]
                         self._update_volumes()

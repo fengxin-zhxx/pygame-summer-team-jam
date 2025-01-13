@@ -73,16 +73,16 @@ class Line2D:
 # base code~
 def ortho_matrix(left, right, bottom, top, near_val, far_val):
     res = numpy.identity(4, dtype=numpy.float32)
-    res.itemset((0, 0), float(2 / (right - left)))
-    res.itemset((1, 1), float(2 / (top - bottom)))
-    res.itemset((2, 2), float(-2 / (far_val - near_val)))
+    res[0, 0] = float(2 / (right - left))
+    res[1, 1] = float(2 / (top - bottom))
+    res[2, 2] = float(-2 / (far_val - near_val))
 
     t_x = -(right + left) / (right - left)
     t_y = -(top + bottom) / (top - bottom)
     t_z = -(far_val + near_val) / (far_val - near_val)
-    res.itemset((0, 3), float(t_x))
-    res.itemset((1, 3), float(t_y))
-    res.itemset((2, 3), float(t_z))
+    res[0, 3] = float(t_x)
+    res[1, 3] = float(t_y)
+    res[2, 3] = float(t_z)
 
     return res
 
@@ -91,12 +91,12 @@ def ortho_matrix(left, right, bottom, top, near_val, far_val):
 def perspective_matrix(fovy, aspect, z_near, z_far):
     f = 1 / math.tan(fovy / 2)
     res = numpy.identity(4, dtype=numpy.float32)
-    res.itemset((0, 0), f / aspect)
-    res.itemset((1, 1), f)
-    res.itemset((2, 2), (z_far + z_near) / (z_near - z_far))
-    res.itemset((3, 2), (2 * z_far * z_near) / (z_near - z_far))
-    res.itemset((2, 3), -1)
-    res.itemset((3, 3), 0)
+    res[0, 0] = f / aspect
+    res[1, 1] = f
+    res[2, 2] = (z_far + z_near) / (z_near - z_far)
+    res[3, 2] = (2 * z_far * z_near) / (z_near - z_far)
+    res[2, 3] = -1
+    res[3, 3] = 0
     return res
 
 

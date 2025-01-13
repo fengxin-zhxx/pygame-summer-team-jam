@@ -5,7 +5,6 @@ import rendering.neon as neon
 import config
 import util.profiling as profiling
 import util.fonts as fonts
-from sound_manager.SoundManager import SoundManager
 import rendering.levelbuilder3d as levelbuilder3d
 import gameplay.highscores as highscores
 import util.utility_functions as utils
@@ -106,7 +105,7 @@ class MainMenuMode(GameMode):
         self.bg_renderer = neon.NeonRenderer()
 
     def on_mode_start(self):
-        SoundManager.play_song("menu_theme", fadein_ms=0)
+        pass
 
     def start_pressed(self):
         import gameplay.gamestuff  # shh don't tell pylint about this
@@ -131,17 +130,17 @@ class MainMenuMode(GameMode):
         for e in events:
             if e.type == pygame.KEYDOWN:
                 if e.key in keybinds.MENU_UP:
-                    SoundManager.play("blip")
+                    
                     self.selected_option_idx = (self.selected_option_idx - 1) % len(self.options)
                 elif e.key in keybinds.MENU_DOWN:
-                    SoundManager.play("blip")
+                    
                     self.selected_option_idx = (self.selected_option_idx + 1) % len(self.options)
                 elif e.key in keybinds.MENU_ACCEPT:
-                    SoundManager.play("accept")
+                    
                     self.options[self.selected_option_idx][1]()  # activate the option's lambda
                     return
                 elif e.key in keybinds.MENU_CANCEL:
-                    SoundManager.play("blip2")
+                    
                     self.exit_pressed()
                     return
 
@@ -208,7 +207,6 @@ def _main():
         config.save_configs_to_disk()
 
     pygame.init()
-    SoundManager.init()
     levelbuilder3d.load_player_art()
     create_or_recreate_window()
     highscores.load_score()

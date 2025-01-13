@@ -2,7 +2,6 @@ from typing import List
 from pygame import Vector3, Color
 from rendering.threedee import Line3D
 import rendering.neon as neon
-from sound_manager.SoundManager import SoundManager
 import util.utility_functions as utils
 import time
 import random
@@ -74,7 +73,7 @@ class Obstacle:
     def _handle_death(self):
         if not self._is_dead:
             self._is_dead = True
-            SoundManager.play('kill')
+            
             self._dead_since = time.time()
 
     def can_jump_over(self):

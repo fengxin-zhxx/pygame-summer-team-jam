@@ -1,6 +1,5 @@
 import pygame
 import keybinds
-from sound_manager.SoundManager import SoundManager
 import time
 
 import util.fonts as fonts
@@ -83,12 +82,12 @@ class Player:
 
     def move_left(self):
         if not self.is_dead():
-            SoundManager.play('blip')
+            
             self.lane -= 1
 
     def move_right(self):
         if not self.is_dead():
-            SoundManager.play('blip')
+            
             self.lane += 1
 
     def move_forward(self, dt):
@@ -103,7 +102,7 @@ class Player:
 
     def jump(self):
         if not self.is_jumping():
-            SoundManager.play('jump')
+            
             self.set_mode('jump')
             self.dy = 5
 
@@ -174,7 +173,7 @@ class Player:
             for obs in obstacles:
                 if obs.handle_potential_collision(self):
                     self.set_mode('dead')
-                    SoundManager.play('death')
+                    
                     self._obstacle_that_killed_me = obs
                     return
 
